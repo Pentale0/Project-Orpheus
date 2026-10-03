@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>NOCTURNE ARCANUM — Manga &amp; Figure Terminal</title>
+  <meta name="description" content="Collector-grade manga and figures from the vault. Boxed, verified, shipped worldwide.">
+  <meta name="theme-color" content="#04060f">
+
+  <!--
+    FONTS
+    Rajdhani  -> the squarish display face used for headings and labels
+    Barlow    -> a calm, neutral body face so long text stays readable
+    Both are free open-source Google Fonts, not tied to any game.
+  -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+  <!-- Lets keyboard users jump straight past the decorative layers. -->
+  <a class="skip-link" href="#home">Skip to content</a>
+
+  <!--
+    FIXED DECORATION LAYERS
+    These three divs sit behind everything and never scroll.
+    * .fx-grid   -> faint engineering grid
+    * .fx-scan   -> very light CRT scanlines
+    * .fx-noise  -> grainy texture, so big flat panels are not boring
+  -->
+  <div class="fx-grid" aria-hidden="true"></div>
+  <div class="fx-scan" aria-hidden="true"></div>
+  <div class="fx-noise" aria-hidden="true"></div>
+
+  <!-- ================= TICKER STRIP ================= -->
+  <div class="ticker" aria-hidden="true">
+    <div class="ticker__track">
+      <span>FREE WORLDWIDE SHIPPING OVER $80</span><i>◆</i>
+      <span>NEW DROP — VESPER BLADE VOL. 3</span><i>◆</i>
+      <span>EVERY FIGURE AUTHENTICITY-VERIFIED</span><i>◆</i>
+      <span>PRE-ORDERS OPEN FOR THE AUTUMN CYCLE</span><i>◆</i>
+      <span>FREE WORLDWIDE SHIPPING OVER $80</span><i>◆</i>
+      <span>NEW DROP — VESPER BLADE VOL. 3</span><i>◆</i>
+      <span>EVERY FIGURE AUTHENTICITY-VERIFIED</span><i>◆</i>
+      <span>PRE-ORDERS OPEN FOR THE AUTUMN CYCLE</span><i>◆</i>
+    </div>
+  </div>
+
+  <!-- ================= HEADER ================= -->
+  <header class="site-head" id="siteHead">
+    <div class="shell site-head__inner">
+
+      <!-- Logo placeholder: swap the SVG for your own mark. -->
+      <a class="brand" href="#home" aria-label="Nocturne Arcanum, home">
+        <svg class="brand__mark" viewBox="0 0 48 48" aria-hidden="true">
+          <path d="M24 2 44 12v24L24 46 4 36V12Z" fill="none" stroke="currentColor" stroke-width="2"/>
+          <path d="M33 15a10 10 0 1 0 0 18 12 12 0 0 1 0-18Z" fill="currentColor"/>
+          <circle cx="24" cy="24" r="2.4" fill="#ffb545"/>
+        </svg>
+        <span class="brand__text">
+          <b>NOCTURNE</b>
+          <em>ARCANUM</em>
+          <small>MANGA &amp; FIGURE TERMINAL</small>
+        </span>
+      </a>
+
+      <!-- Primary slanted navigation -->
+      <nav class="nav" id="primaryNav" aria-label="Primary">
+        <ul>
+          <li><a href="#home"           data-nav>Home</a></li>
+          <li><a href="#collection"     data-nav>Manga</a></li>
+          <li><a href="#collection"     data-nav data-cat-jump="figurines">Figurines</a></li>
+          <li><a href="#new-arrivals"   data-nav>New Arrivals</a></li>
+        </ul>
+      </nav>
+
+      <div class="head-actions">
+        <!-- Cart trigger; the number is filled in by script.js -->
+        <button class="cart-btn" id="cartBtn" type="button" aria-haspopup="dialog">
+          <span class="cart-btn__label">Cart</span>
+          <span class="cart-btn__count" id="cartCount" data-empty="true">0</span>
+        </button>
+        <button class="burger" id="burger" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="primaryNav">
+          <i></i><i></i><i></i>
+        </button>
+      </div>
+
+    </div>
+  </header>
+
+  <main>
+    <!-- ================= HERO ================= -->
+    <section class="hero" id="home">
+      <!-- Big moon + clock dial drawn in SVG so it can glow and spin slowly. -->
+      <div class="hero__dial" aria-hidden="true">
+        <svg viewBox="0 0 400 400">
+          <circle cx="200" cy="200" r="186" class="dial-ring"/>
+          <circle cx="200" cy="200" r="150" class="dial-ring dial-ring--thin"/>
+          <circle cx="200" cy="200" r="112" class="dial-ring dial-ring--thin"/>
+          <g class="dial-ticks">
+            <line x1="200" y1="14" x2="200" y2="40"/>
+            <line x1="200" y1="360" x2="200" y2="386"/>
+            <line x1="14" y1="200" x2="40" y2="200"/>
+            <line x1="360" y1="200" x2="386" y2="200"/>
+          </g>
+          <g class="dial-hands">
+            <line x1="200" y1="200" x2="200" y2="86"/>
+            <line x1="200" y1="200" x2="272" y2="252"/>
+          </g>
+        </svg>
+      </div>
+
+      <!-- Crescent moon glow behind the headline -->
+      <div class="hero__moon" aria-hidden="true"></div>
+
+      <div class="shell hero__inner">
+        <div class="hero__copy">
+          <p class="eyebrow reveal" style="--i:0"><i></i>EST. 2026 // NIGHT-SIDE DISTRIBUTION</p>
+
+          <h1 class="hero__title">
+            <span class="reveal" style="--i:1">READ</span>
+            <span class="reveal" style="--i:2">PAST</span>
+            <span class="reveal hero__title-alt" style="--i:3">SUNSET<i class="hero__dot"></i></span>
+          </h1>
+
+          <p class="hero__lede reveal" style="--i:4">
+            Collector-grade manga and figures pulled from the vault. Boxed, checked,
+            hand-signed where it counts, and shipped worldwide within 48 hours.
+          </p>
+
+          <div class="hero__cta reveal" style="--i:5">
+            <a class="btn btn--amber" href="#collection">
+              <span>Browse the collection</span><i aria-hidden="true">▶</i>
+            </a>
+            <a class="btn btn--ghost" href="#new-arrivals">
+              <span>See this week's drop</span>
+            </a>
+          </div>
+
+          <dl class="hero__stats reveal" style="--i:6">
+            <div><dt>480+</dt><dd>Titles in vault</dd></div>
+            <div><dt>24</dt><dd>Figure makers</dd></div>
+            <div><dt>48h</dt><dd>Dispatch window</dd></div>
+          </dl>
+        </div>
+
+        <!-- Focal element: a stacked 3D-box illustration drawn with divs + SVG. -->
+        <div class="hero__stage reveal" style="--i:7">
+          <div class="vitrine">
+            <div class="vitrine__plinth"></div>
+            <div class="vitrine__box vitrine__box--back">
+              <span class="vitrine__spine">VESPER<br>BLADE</span>
+            </div>
+            <div class="vitrine__box vitrine__box--mid">
+              <span class="vitrine__spine">CRIMSON<br>CIRCUIT</span>
+            </div>
+            <div class="vitrine__fig">
+              <svg viewBox="0 0 200 300" role="img" aria-label="Placeholder silhouette of a display figure">
+                <ellipse cx="100" cy="286" rx="52" ry="9" class="fig-shadow"/>
+                <circle cx="100" cy="62" r="26" class="fig-fill"/>
+                <path d="M74 60q0-30 26-30t26 30q-8-14-26-14T74 60Z" class="fig-fill"/>
+                <path d="M88 82h24l5 7 26 10 8 52-18-5 6 34h-78l6-34-18 5 8-52 26-10Z" class="fig-fill"/>
+                <path d="M100 96v74" class="fig-line"/>
+                <path d="M78 120 100 132l22-12" class="fig-line"/>
+              </svg>
+            </div>
+            <div class="vitrine__floor"></div>
+          </div>
+          <p class="hero__caption">FEATURED PRE-ORDER // 1:7 SCALE // SHIPS Q4</p>
+        </div>
+      </div>
+
+      <!-- Diagonal divider instead of a flat border -->
+      <div class="slant-divider" aria-hidden="true"></div>
+    </section>
+
+    <!-- ================= SHOP BY TYPE (stacked slanted bars) ================= -->
+    <section class="shopby" id="shopby" aria-labelledby="shopbyTitle">
+      <div class="shell shopby__inner">
+
+        <div class="shopby__head">
+          <p class="eyebrow reveal"><i></i>01 // SELECT A SHELF</p>
+          <h2 class="section-title reveal" id="shopbyTitle">Shop by<span class="accent">Type</span></h2>
+        </div>
+
+        <!--
+          These stacked bars are the classic "slanted menu" pattern.
+          Buttons carry data-filter values that script.js matches against
+          each product card's data-cat attribute.
+        -->
+        <ul class="stackmenu" id="filterStack" role="list">
+          <li>
+            <button class="stackmenu__item is-active" data-filter="all" type="button">
+              <span class="stackmenu__idx">01</span>
+              <span class="stackmenu__name">Everything</span>
+              <span class="stackmenu__count" data-count="all">08</span>
+              <i class="stackmenu__arrow" aria-hidden="true">▶</i>
+            </button>
+          </li>
+          <li>
+            <button class="stackmenu__item" data-filter="manga" type="button">
+              <span class="stackmenu__idx">02</span>
+              <span class="stackmenu__name">Manga volumes</span>
+              <span class="stackmenu__count" data-count="manga">04</span>
+              <i class="stackmenu__arrow" aria-hidden="true">▶</i>
+            </button>
+          </li>
+          <li>
+            <button class="stackmenu__item" data-filter="figurines" type="button">
+              <span class="stackmenu__idx">03</span>
+              <span class="stackmenu__name">Figurines</span>
+              <span class="stackmenu__count" data-count="figurines">04</span>
+              <i class="stackmenu__arrow" aria-hidden="true">▶</i>
+            </button>
+          </li>
+          <li>
+            <button class="stackmenu__item" data-filter="new" type="button">
+              <span class="stackmenu__idx">04</span>
+              <span class="stackmenu__name">New arrivals</span>
+              <span class="stackmenu__count" data-count="new">03</span>
+              <i class="stackmenu__arrow" aria-hidden="true">▶</i>
+            </button>
+          </li>
+        </ul>
+
+        <p class="shopby__note reveal">
+          <span class="dot-live" aria-hidden="true"></span>
+          Inventory updates every Thursday at 21:00 JST.
+        </p>
+
+      </div>
+    </section>
+
+    <!-- ================= PRODUCT GRID ================= -->
+    <section class="collection" id="collection" aria-labelledby="collectionTitle">
+      <div class="shell">
+        <header class="collection__head">
+          <div>
+            <p class="eyebrow reveal"><i></i>02 // THE SHELVES</p>
+            <h2 class="section-title reveal" id="collectionTitle">Curated <span class="accent">Stock</span></h2>
+          </div>
+          <p class="collection__result reveal" id="resultCount" aria-live="polite">Showing 8 of 8</p>
+        </header>
+
+        <div class="grid" id="productGrid">
+          <!-- Cards below are plain HTML. data-* attributes feed the cart + filters. -->
+
+          <article class="card reveal" style="--i:0" data-cat="manga new"
+                   data-id="VB-01" data-title="Vesper Blade — Vol. 1" data-price="24.00" data-art="assets/vesper-1.svg">
+            <div class="card__media">
+              <img src="assets/vesper-1.svg" alt="Placeholder cover art for Vesper Blade volume one" loading="lazy" width="600" height="750">
+              <span class="card__tag">MANGA</span>
+              <span class="card__badge">NEW</span>
+            </div>
+            <div class="card__body">
+              <p class="card__series">VESPER BLADE · VOL 1</p>
+              <h3 class="card__title">The Dusksteel Overture</h3>
+              <p class="card__meta">HIKARI SEGA · B5 · 224 PP</p>
+              <div class="card__foot">
+                <span class="card__price">$24.00</span>
+                <button class="btn-add" type="button" data-add>
+                  <span>Add to cart</span><i aria-hidden="true">▶</i>
+                </button>
+              </div>
+            </div>
+          </article>
+
+          <article class="card reveal" style="--i:1" data-cat="manga"
+                   data-id="VB-02" data-title="Vesper Blade — Vol. 2" data-price="24.00" data-art="assets/vesper-2.svg">
+            <div class="card__media">
+              <img src="assets/vesper-2.svg" alt="Placeholder cover art for Vesper Blade volume two" loading="lazy" width="600" height="750">
+              <span class="card__tag">MANGA</span>
+            </div>
+            <div class="card__body">
+              <p class="card__series">VESPER BLADE · VOL 2</p>
+              <h3 class="card__title">Lanterns Over the Iron Ward</h3>
+              <p class="card__meta">HIKARI SEGA · B5 · 232 PP</p>
+              <div class="card__foot">
+                <span class="card__price">$24.00</span>
+                <button class="btn-add" type="button" data-add>
+                  <span>Add to cart</span><i aria-hidden="true">▶</i>
+                </button>
+              </div>
+            </div>
+          </article>
+
+          <article class="card reveal" style="--i:2" data-cat="manga new"
+                   data-id="CC-01" data-title="Crimson Circuit — Vol. 1" data-price="22.00" data-art="assets/crimson-1.svg">
+            <div class="card__media">
+              <img src="assets/crimson-1.svg" alt="Placeholder cover art for Crimson Circuit volume one" loading="lazy" width="600" height="750">
+              <span class="card__tag">MANGA</span>
+              <span class="card__badge">NEW</span>
+            </div>
+            <div class="card__body">
+              <p class="card__series">CRIMSON CIRCUIT · VOL 1</p>
+              <h3 class="card__title">Static Bloom</h3>
+              <p class="card__meta">AOYAGI WORKS · B6 · 208 PP</p>
+              <div class="card__foot">
+                <span class="card__price">$22.00</span>
+                <button class="btn-add" type="button" data-add>
+                  <span>Add to cart</span><i aria-hidden="true">▶</i>
+                </button>
+              </div>
+            </div>
+          </article>
+
+          <article class="card reveal" style="--i:3" data-cat="manga"
+                   data-id="MP-01" data-title="Moonfall Protocol — Vol. 1" data-price="26.00" data-art="assets/moonfall-1.svg">
+            <div class="card__media">
+              <img src="assets/moonfall-1.svg" alt="Placeholder cover art for Moonfall Protocol volume one" loading="lazy" width="600" height="750">
+              <span class="card__tag">MANGA</span>
+            </div>
+            <div class="card__body">
+              <p class="card__series">MOONFALL PROTOCOL · VOL 1</p>
+              <h3 class="card__title">Countdown to Meridian</h3>
+              <p class="card__meta">KUROGANE HOUSE · B5 · 240 PP</p>
+              <div class="card__foot">
+                <span class="card__price">$26.00</span>
+                <button class="btn-add" type="button" data-add>
+                  <span>Add to cart</span><i aria-hidden="true">▶</i>
+                </button>
+              </div>
+            </div>
+          </article>
+
+          <article class="card reveal" style="--i:4" data-cat="figurines new"
+                   data-id="FG-AR" data-title="Aria, Duskbloom — 1/7 figure" data-price="189.00" data-art="assets/fig-aria.svg">
+            <div class="card__media">
+              <img src="assets/fig-aria.svg" alt="Placeholder product shot of the Aria Duskbloom figure" loading="lazy" width="600" height="750">
+              <span class="card__tag">FIGURE</span>
+              <span class="card__badge">NEW</span>
+            </div>
+            <div class="card__body">
+              <p class="card__series">ARIA, DUSKBLOOM</p>
+              <h3 class="card__title">Seventh Scale Painted Edition</h3>
+              <p class="card__meta">ATELIER KIRIN · 1:7 · PVC</p>
+              <div class="card__foot">
+                <span class="card__price">$189.00</span>
+                <button class="btn-add" type="button" data-add>
+                  <span>Add to cart</span><i aria-hidden="true">▶</i>
+                </button>
+              </div>
+            </div>
+          </article>
+
+          <article class="card reveal" style="--i:5" data-cat="figurines"
+                   data-id="FG-KT" data-title="Kite, Silverwake — 1/8 figure" data-price="142.00" data-art="assets/fig-kite.svg">
+            <div class="card__media">
+              <img src="assets/fig-kite.svg" alt="Placeholder product shot of the Kite Silverwake figure" loading="lazy" width="600" height="750">
+              <span class="card__tag">FIGURE</span>
+            </div>
+            <div class="card__body">
+              <p class="card__series">KITE, SILVERWAKE</p>
+              <h3 class="card__title">Boutique Statue, Matte Finish</h3>
+              <p class="card__meta">ATELIER KIRIN · 1:8 · RESIN</p>
+              <div class="card__foot">
+                <span class="card__price">$142.00</span>
+                <button class="btn-add" type="button" data-add>
+                  <span>Add to cart</span><i aria-hidden="true">▶</i>
+                </button>
+              </div>
+            </div>
+          </article>
+
+          <article class="card reveal" style="--i:6" data-cat="figurines"
+                   data-id="FG-SB" data-title="Sable, Nocturne — 1/6 figure" data-price="236.00" data-art="assets/fig-sable.svg">
+            <div class="card__media">
+              <img src="assets/fig-sable.svg" alt="Placeholder product shot of the Sable Nocturne figure" loading="lazy" width="600" height="750">
+              <span class="card__tag">FIGURE</span>
+            </div>
+            <div class="card__body">
+              <p class="card__series">SABLE, NOCTURNE</p>
+              <h3 class="card__title">Collector Bust, Gilt Finish</h3>
+              <p class="card__meta">VANTA FOUNDRY · 1:6 · COMPOSITE</p>
+              <div class="card__foot">
+                <span class="card__price">$236.00</span>
+                <button class="btn-add" type="button" data-add>
+                  <span>Add to cart</span><i aria-hidden="true">▶</i>
+                </button>
+              </div>
+            </div>
+          </article>
+
+          <article class="card reveal" style="--i:7" data-cat="figurines new"
+                   data-id="FG-EM" data-title="Ember, Last Lantern — 1/7 figure" data-price="164.00" data-art="assets/fig-ember.svg">
+            <div class="card__media">
+              <img src="assets/fig-ember.svg" alt="Placeholder product shot of the Ember Last Lantern figure" loading="lazy" width="600" height="750">
+              <span class="card__tag">FIGURE</span>
+              <span class="card__badge">NEW</span>
+            </div>
+            <div class="card__body">
+              <p class="card__series">EMBER, LAST LANTERN</p>
+              <h3 class="card__title">Pre-Order Statue, Night Ver.</h3>
+              <p class="card__meta">VANTA FOUNDRY · 1:7 · PVC</p>
+              <div class="card__foot">
+                <span class="card__price">$164.00</span>
+                <button class="btn-add" type="button" data-add>
+                  <span>Pre-order</span><i aria-hidden="true">▶</i>
+                </button>
+              </div>
+            </div>
+          </article>
+
+          <!-- Shown only when a filter matches nothing. -->
+          <p class="grid__empty" id="gridEmpty" hidden>
+            <span>NO ITEMS ON THIS SHELF</span>
+            <button class="btn btn--ghost btn--sm" type="button" data-reset>Show everything</button>
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= NEW ARRIVALS BANNER ================= -->
+    <section class="drop" id="new-arrivals" aria-labelledby="dropTitle">
+      <div class="slant-divider slant-divider--up" aria-hidden="true"></div>
+      <div class="shell drop__inner">
+        <div class="drop__art" aria-hidden="true">
+          <div class="drop__box">
+            <span class="drop__boxNo">No. 03</span>
+            <svg viewBox="0 0 220 300">
+              <path d="M110 40a30 30 0 1 1 0 60 30 30 0 0 1 0-60Z" class="fig-fill"/>
+              <path d="M84 96h52l8 12 34 12 10 66-24-6 8 44H88l8-44-24 6 10-66 34-12Z" class="fig-fill"/>
+              <path d="M110 112v92" class="fig-line"/>
+            </svg>
+          </div>
+        </div>
+
+        <div class="drop__copy">
+          <p class="eyebrow reveal"><i></i>03 // JUST LANDED</p>
+          <h2 class="section-title section-title--xl reveal" id="dropTitle">
+            Vesper Blade <span class="accent">Vol. 3</span>
+          </h2>
+          <p class="drop__lede reveal">
+            The ward falls at 04:00 and the lanterns go out one by one. First
+            print, numbered run of 3,000, with the foil-stamped jacket variant.
+          </p>
+          <ul class="drop__specs reveal">
+            <li><span>Release</span><b>14 NOV</b></li>
+            <li><span>Format</span><b>B5 / 240 PP</b></li>
+            <li><span>Print</span><b>FIRST EDITION</b></li>
+            <li><span>Reserved</span><b>612 / 3000</b></li>
+          </ul>
+          <div class="drop__cta reveal">
+            <button class="btn btn--amber" type="button" data-quick="VB-03">
+              <span>Reserve a copy — $26.00</span><i aria-hidden="true">▶</i>
+            </button>
+            <a class="btn btn--ghost" href="#collection"><span>Back to shelves</span></a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= SERVICE PANELS ================= -->
+    <section class="service" aria-labelledby="serviceTitle">
+      <div class="shell">
+        <p class="eyebrow reveal"><i></i>04 // WHY BUY HERE</p>
+        <h2 class="section-title reveal" id="serviceTitle">The <span class="accent">Promise</span></h2>
+
+        <ul class="service__grid">
+          <li class="panel reveal" style="--i:0">
+            <span class="panel__no">01</span>
+            <h3>Verified at intake</h3>
+            <p>Every box is opened, photographed and logged before it reaches a shelf. Tamper seals are replaced, never faked.</p>
+          </li>
+          <li class="panel reveal" style="--i:1">
+            <span class="panel__no">02</span>
+            <h3>Double-walled packing</h3>
+            <p>Manga ships in rigid mailers with a corner brace. Figures ship in a two-shell carton with foam cut to shape.</p>
+          </li>
+          <li class="panel reveal" style="--i:2">
+            <span class="panel__no">03</span>
+            <h3>30-day returns</h3>
+            <p>If a jacket is creased or a base is warped, send it back within thirty days and we cover the label.</p>
+          </li>
+          <li class="panel reveal" style="--i:3">
+            <span class="panel__no">04</span>
+            <h3>Collector-grade storage</h3>
+            <p>Back-issue volumes are bagged and boarded so paper never yellows on the shelf you paid for it to sit on.</p>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ================= PRE-ORDER SIGNUP ================= -->
+    <section class="signup" aria-labelledby="signupTitle">
+      <div class="shell signup__inner">
+        <div>
+          <p class="eyebrow reveal"><i></i>05 // THE LIST</p>
+          <h2 class="section-title reveal" id="signupTitle">Get the drop<br><span class="accent">before the list</span></h2>
+        </div>
+        <!-- Form has no backend; script.js just shows a confirmation. -->
+        <form class="signup__form reveal" id="signupForm" novalidate>
+          <label class="sr-only" for="email">Email address</label>
+          <input id="email" name="email" type="email" placeholder="you@address.com" autocomplete="email" required>
+          <button class="btn btn--amber" type="submit"><span>Join the list</span><i aria-hidden="true">▶</i></button>
+          <p class="signup__note" id="signupNote">One message per drop. No forwarding, ever.</p>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <!-- ================= FOOTER ================= -->
+  <footer class="site-foot">
+    <div class="slant-divider" aria-hidden="true"></div>
+    <div class="shell site-foot__inner">
+
+      <div class="site-foot__brand">
+        <a class="brand brand--foot" href="#home">
+          <svg class="brand__mark" viewBox="0 0 48 48" aria-hidden="true">
+            <path d="M24 2 44 12v24L24 46 4 36V12Z" fill="none" stroke="currentColor" stroke-width="2"/>
+            <path d="M33 15a10 10 0 1 0 0 18 12 12 0 0 1 0-18Z" fill="currentColor"/>
+            <circle cx="24" cy="24" r="2.4" fill="#ffb545"/>
+          </svg>
+          <span class="brand__text"><b>NOCTURNE</b><em>ARCANUM</em></span>
+        </a>
+        <p>
+          A night-side shop for manga you intend to keep and figures you intend
+          to display. No bots, no flash sales, no stock photos.
+        </p>
+      </div>
+
+      <nav class="site-foot__col" aria-label="Shop">
+        <h4>Shop</h4>
+        <ul>
+          <li><a href="#collection">All manga</a></li>
+          <li><a href="#collection" data-cat-jump="figurines">All figures</a></li>
+          <li><a href="#new-arrivals">New arrivals</a></li>
+          <li><a href="#collection">Pre-orders</a></li>
+          <li><a href="#collection">Back issues</a></li>
+        </ul>
+      </nav>
+
+      <nav class="site-foot__col" aria-label="Help">
+        <h4>Help</h4>
+        <ul>
+          <li><a href="#serviceTitle">Shipping</a></li>
+          <li><a href="#serviceTitle">Returns</a></li>
+          <li><a href="#serviceTitle">Authenticity</a></li>
+          <li><a href="#serviceTitle">Condition grading</a></li>
+          <li><a href="#serviceTitle">Contact</a></li>
+        </ul>
+      </nav>
+
+      <div class="site-foot__col">
+        <h4>Contact</h4>
+        <ul class="site-foot__contact">
+          <li><span>Counter</span>3F Kanda Terminal, Chiyoda</li>
+          <li><span>Mail</span>vault@nocturne-arcanum.example</li>
+          <li><span>Hours</span>Thu–Sun, 13:00 – 21:00 JST</li>
+        </ul>
+        <ul class="social">
+          <li><a href="#" aria-label="Feed"><i aria-hidden="true">◎</i></a></li>
+          <li><a href="#" aria-label="Gallery"><i aria-hidden="true">▣</i></a></li>
+          <li><a href="#" aria-label="Chat"><i aria-hidden="true">◈</i></a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="shell site-foot__base">
+      <p>© 2026 Nocturne Arcanum. A fictional storefront built for layout demonstration.</p>
+      <p class="site-foot__legal">
+        <a href="#">Terms</a><a href="#">Privacy</a><a href="#">Returns</a>
+      </p>
+    </div>
+  </footer>
+
+  <!-- ================= CART DRAWER ================= -->
+  <!-- Hidden by default; script.js toggles .is-open on it. -->
+  <div class="drawer" id="cartDrawer" role="dialog" aria-modal="true" aria-label="Shopping cart" aria-hidden="true">
+    <div class="drawer__scrim" data-close-cart></div>
+    <aside class="drawer__panel">
+      <header class="drawer__head">
+        <h2>Your cart</h2>
+        <button class="drawer__close" type="button" data-close-cart aria-label="Close cart">✕</button>
+      </header>
+      <div class="drawer__body" id="cartItems">
+        <!-- script.js renders list items here -->
+        <p class="drawer__empty" id="cartEmpty">
+          <span>NOTHING QUEUED</span>
+          Pick a title from the shelves to start.
+        </p>
+      </div>
+      <footer class="drawer__foot">
+        <div class="drawer__line"><span>Subtotal</span><b id="cartSubtotal">$0.00</b></div>
+        <p class="drawer__ship" id="cartShip">Add $80.00 more for free shipping.</p>
+        <button class="btn btn--amber btn--block" id="checkoutBtn" type="button">
+          <span>Checkout</span><i aria-hidden="true">▶</i>
+        </button>
+      </footer>
+    </aside>
+  </div>
+
+  <!-- Small confirmation that pops in the corner after an add. -->
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,67 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 750" role="img" aria-label="Placeholder cover art, abstract night-blue scene with a lone figure and a crescent moon">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0a1330"/>
+      <stop offset=".55" stop-color="#070d20"/>
+      <stop offset="1" stop-color="#04060f"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="52%" cy="38%" r="58%">
+      <stop offset="0" stop-color="#2f6bff" stop-opacity=".55"/>
+      <stop offset="1" stop-color="#2f6bff" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="fade" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#04060f" stop-opacity="0"/>
+      <stop offset="1" stop-color="#04060f" stop-opacity=".95"/>
+    </linearGradient>
+    <pattern id="dots" width="26" height="26" patternUnits="userSpaceOnUse">
+      <circle cx="2" cy="2" r="1.1" fill="#4fe3ff" opacity=".22"/>
+    </pattern>
+  </defs>
+
+  <rect width="600" height="750" fill="url(#bg)"/>
+  <rect width="600" height="750" fill="url(#glow)"/>
+  <rect y="470" width="600" height="280" fill="url(#dots)"/>
+
+  <!-- crescent moon -->
+  <circle cx="392" cy="196" r="96" fill="#dbeaff" opacity=".92"/>
+  <circle cx="432" cy="170" r="96" fill="#070d20"/>
+
+  <!-- distant skyline -->
+  <g fill="#0e1c45" opacity=".85">
+    <path d="M0 470V406h54v-38h44v38h40v-70h50v70h46v-46h58v46h52v-92h46v92h60v-34h74v34h76v60H0Z"/>
+  </g>
+  <g stroke="#4fe3ff" stroke-opacity=".35" stroke-width="2">
+    <line x1="188" y1="400" x2="188" y2="470"/>
+    <line x1="330" y1="378" x2="330" y2="470"/>
+    <line x1="500" y1="436" x2="500" y2="470"/>
+  </g>
+
+  <!-- lone figure -->
+  <g transform="translate(240 250) scale(1.05)">
+    <ellipse cx="60" cy="222" rx="52" ry="10" fill="#04060f" opacity=".8"/>
+    <circle cx="60" cy="30" r="22" fill="#04060f" stroke="#4fe3ff" stroke-width="2"/>
+    <path d="M38 28q0-24 22-24t22 24q-7-11-22-11T38 28Z" fill="#4fe3ff" opacity=".18"/>
+    <path d="M50 46h20l5 6 24 9 8 46-18-4 6 30H28l6-30-18 4 8-46 26-9Z" fill="#04060f" stroke="#4fe3ff" stroke-width="2"/>
+    <path d="M60 56v58" stroke="#4fe3ff" stroke-width="1.4" opacity=".7"/>
+  </g>
+
+  <!-- amber blade glint: the single warm accent -->
+  <path d="M300 250 372 168l-14 92Z" fill="#ffb545" opacity=".9"/>
+
+  <rect y="470" width="600" height="280" fill="url(#fade)"/>
+
+  <!-- cover title bars -->
+  <g>
+    <rect x="56" y="546" width="180" height="8" fill="#4fe3ff"/>
+    <rect x="56" y="580" width="360" height="26" fill="#ffffff" opacity=".92"/>
+    <rect x="56" y="618" width="270" height="26" fill="#ffffff" opacity=".55"/>
+    <rect x="56" y="668" width="120" height="6" fill="#ffb545"/>
+    <rect x="196" y="668" width="60" height="6" fill="#4fe3ff" opacity=".5"/>
+  </g>
+
+  <!-- corner registration marks -->
+  <g stroke="#4fe3ff" stroke-opacity=".5" stroke-width="2">
+    <path d="M28 28h44M28 28v44"/>
+    <path d="M572 722h-44M572 722v-44"/>
+  </g>
+</svg>

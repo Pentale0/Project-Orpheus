@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 750" role="img" aria-label="Placeholder cover art, abstract tower-and-signal composition in night blue with amber highlights">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="1" x2="1" y2="0">
+      <stop offset="0" stop-color="#0a1330"/>
+      <stop offset=".6" stop-color="#070d20"/>
+      <stop offset="1" stop-color="#04060f"/>
+    </linearGradient>
+    <radialGradient id="core" cx="50%" cy="46%" r="40%">
+      <stop offset="0" stop-color="#ffb545" stop-opacity=".55"/>
+      <stop offset="1" stop-color="#ffb545" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <rect width="600" height="750" fill="url(#bg)"/>
+  <rect width="600" height="750" fill="url(#core)"/>
+
+  <!-- concentric broadcast rings -->
+  <g fill="none" stroke="#4fe3ff">
+    <circle cx="300" cy="352" r="120" stroke-opacity=".34" stroke-width="1.6"/>
+    <circle cx="300" cy="352" r="186" stroke-opacity=".22" stroke-width="1.6"/>
+    <circle cx="300" cy="352" r="252" stroke-opacity=".13" stroke-width="1.6"/>
+  </g>
+
+  <!-- central glowing core -->
+  <circle cx="300" cy="352" r="34" fill="#ffb545"/>
+  <circle cx="300" cy="352" r="58" fill="#ffd76a" opacity=".22"/>
+
+  <!-- circuit mast -->
+  <g stroke="#4fe3ff" stroke-width="3" stroke-opacity=".7">
+    <path d="M300 386v126"/>
+    <path d="M300 512 244 566"/>
+    <path d="M300 512l56 54"/>
+    <path d="M300 440l-42 40"/>
+    <path d="M300 440l42 40"/>
+  </g>
+  <g fill="#4fe3ff">
+    <circle cx="244" cy="566" r="5"/>
+    <circle cx="356" cy="566" r="5"/>
+    <circle cx="258" cy="480" r="4"/>
+    <circle cx="342" cy="480" r="4"/>
+  </g>
+
+  <!-- small figure watching from the left -->
+  <g transform="translate(96 400)">
+    <circle cx="40" cy="26" r="18" fill="#04060f" stroke="#dbeaff" stroke-width="2"/>
+    <path d="M31 41h18l5 6 20 8 6 38-15-3 5 26H21l5-26-15 3 6-38 19-8Z" fill="#04060f" stroke="#dbeaff" stroke-width="2"/>
+  </g>
+
+  <!-- horizon -->
+  <rect y="592" width="600" height="3" fill="#4fe3ff" opacity=".4"/>
+
+  <g>
+    <rect x="56" y="612" width="170" height="8" fill="#4fe3ff"/>
+    <rect x="56" y="646" width="300" height="26" fill="#ffffff" opacity=".92"/>
+    <rect x="56" y="684" width="190" height="26" fill="#ffffff" opacity=".48"/>
+    <rect x="420" y="646" width="124" height="26" fill="#ffb545" opacity=".85"/>
+  </g>
+</svg>

@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 750" role="img" aria-label="Placeholder product shot of a bust on a gilt plinth">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#132a63"/>
+      <stop offset=".6" stop-color="#070d20"/>
+      <stop offset="1" stop-color="#04060f"/>
+    </linearGradient>
+    <radialGradient id="spot" cx="50%" cy="32%" r="46%">
+      <stop offset="0" stop-color="#1b3fd8" stop-opacity=".6"/>
+      <stop offset="1" stop-color="#1b3fd8" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="gilt" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#ffd76a"/>
+      <stop offset="1" stop-color="#ffb545" stop-opacity=".4"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="600" height="750" fill="url(#bg)"/>
+  <rect width="600" height="750" fill="url(#spot)"/>
+
+  <!-- curtain folds -->
+  <g stroke="#4fe3ff" stroke-opacity=".12" stroke-width="12" fill="none">
+    <path d="M60 0v470M180 0v470M420 0v470M540 0v470"/>
+  </g>
+
+  <!-- bust -->
+  <g transform="translate(300 150) scale(2.1)">
+    <path d="M-34 8q0-32 34-32t34 32q0 22-10 34 4-30-24-30t-24 30q-10-12-10-34Z" fill="#060b1a" stroke="#4fe3ff" stroke-width="2"/>
+    <circle cx="0" cy="6" r="20" fill="#060b1a" stroke="#4fe3ff" stroke-width="2"/>
+    <path d="M-14 34h28l4 6 20 9 6 40H-44l6-40 20-9Z" fill="#060b1a" stroke="#4fe3ff" stroke-width="2"/>
+    <path d="M-20 89h40" stroke="url(#gilt)" stroke-width="3"/>
+  </g>
+
+  <!-- plinth with gilt trim -->
+  <path d="M182 520h236l-16 148H198Z" fill="#0a1330" stroke="#4fe3ff" stroke-opacity=".4" stroke-width="2"/>
+  <rect x="176" y="506" width="248" height="18" fill="url(#gilt)"/>
+  <rect x="198" y="556" width="204" height="4" fill="url(#gilt)" opacity=".7"/>
+  <!-- engraved plate -->
+  <rect x="240" y="590" width="120" height="34" fill="#04060f" stroke="#4fe3ff" stroke-opacity=".5"/>
+  <g fill="#4fe3ff" opacity=".6">
+    <rect x="256" y="602" width="88" height="5"/>
+    <rect x="268" y="613" width="64" height="5"/>
+  </g>
+</svg>
