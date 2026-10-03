@@ -1,14 +1,1 @@
-# OS / editor cruft
-.DS_Store
-Thumbs.db
-desktop.ini
-
-# Logs and scratch files
-*.log
-dev.log
-
-# Node (there is no build step, but keep tooling local)
-node_modules/
-
-# Ignore the audit output dump if someone saves one
-scripts/*.dump.html
+﻿CACHE_NAME=orpheus
