@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Orpheus &middot; music</title>
+<meta name="description" content="Project Orpheus - a local music player with playlists and play counting.">
+<meta name="theme-color" content="#050c4d">
+<link rel="icon" href="img/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&display=swap">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div class="bg" aria-hidden="true"><div class="ring"></div><div class="giant" id="giant">ORPHEUS</div></div>
+
+<div class="app" id="app">
+  <aside class="side" id="side">
+    <div class="brand"><span class="brand-gem" data-ic="gem"></span><span class="brand-word">ORPHEUS</span></div>
+
+    <nav class="side-nav" id="side-nav" aria-label="Main"></nav>
+
+    <div class="side-pl">
+      <div class="side-head">
+        <span>Playlists</span>
+        <button class="ib" type="button" id="new-pl" data-act="new-playlist" aria-label="New playlist"><span data-ic="plus"></span></button>
+      </div>
+      <div class="pl-list" id="pl-list"></div>
+    </div>
+
+    <footer class="side-foot" id="folders"></footer>
+  </aside>
+
+  <main class="stage" id="stage">
+    <header class="top" id="top"></header>
+    <section class="content" id="view" tabindex="-1"></section>
+  </main>
+
+  <aside class="queue" id="queue" aria-label="Queue" hidden></aside>
+
+  <footer class="player" aria-label="Player">
+    <div class="np">
+      <span id="np-art" class="np-art"></span>
+      <div class="np-text">
+        <b id="np-title">Nothing playing</b>
+        <small id="np-artist">Pick a track to start</small>
+      </div>
+      <button class="ib" type="button" id="b-like" data-act="like-current" aria-label="Save track" disabled><span data-ic="heart"></span></button>
+      <button class="ib" type="button" id="b-add" data-act="add-current" aria-label="Add to playlist" disabled><span data-ic="plus"></span></button>
+    </div>
+
+    <div class="mid">
+      <div class="ctrl">
+        <button class="pb opt" type="button" id="b-shuffle" data-act="shuffle" aria-label="Shuffle" aria-pressed="false"><span data-ic="shuffle"></span></button>
+        <button class="pb" type="button" data-act="prev" aria-label="Previous track"><span data-ic="prev"></span></button>
+        <button class="pb main" type="button" id="b-play" data-act="toggle" aria-label="Play"><span data-ic="play"></span></button>
+        <button class="pb" type="button" data-act="next" aria-label="Next track"><span data-ic="next"></span></button>
+        <button class="pb opt" type="button" id="b-repeat" data-act="repeat" data-mode="off" aria-label="Repeat: off"><span data-ic="repeat"></span></button>
+      </div>
+      <div class="seek">
+        <span id="t-cur">0:00</span>
+        <div class="hit" id="seek" role="slider" tabindex="0" aria-label="Seek" aria-valuemin="0" aria-valuemax="0" aria-valuenow="0">
+          <span class="bar"><i id="seek-fill" class="fill"></i></span>
+        </div>
+        <span id="t-dur">0:00</span>
+      </div>
+    </div>
+
+    <div class="vol">
+      <button class="ib" type="button" id="b-queue" data-act="queue" aria-label="Queue" aria-expanded="false"><span data-ic="queue"></span></button>
+      <button class="ib" type="button" id="b-mute" data-act="mute" aria-label="Mute"><span data-ic="vol"></span></button>
+      <div class="hit grow" id="vol" role="slider" tabindex="0" aria-label="Volume" aria-valuemin="0" aria-valuemax="100" aria-valuenow="80">
+        <span class="bar"><i id="vol-fill" class="fill" style="width:80%"></i></span>
+      </div>
+    </div>
+  </footer>
+</div>
+
+<div id="modal"></div>
+<div id="toast" role="status" aria-live="polite"></div>
+<noscript><p style="padding:24px;font:16px system-ui">Orpheus needs JavaScript to play your library.</p></noscript>
+
+<script type="module" src="js/app.js"></script>
+</body>
+</html>

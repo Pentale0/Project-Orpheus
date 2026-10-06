@@ -1,99 +1,164 @@
-/**
- * Static checks for the Nocturne Arcanum storefront.
- * Run: node scripts/check.mjs <path-to-captured-dom.html>
- */
-import { readFileSync } from 'node:fs'
+import { spawn } from 'node:child_process';
+import fs from 'node:fs';
+import os from 'node:os';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
 
-const file = process.argv[2] ?? 'C:/Users/anasb/AppData/Local/Temp/opencode/nocturne.html'
-const html = readFileSync(file, 'utf8')
+const ROOT = path.dirname(path.dirname(fileURLToPath(import.meta.url)));
+const PORT = 4199;
+const BASE = `http://127.0.0.1:${PORT}`;
+const SONGS = process.env.ORPHEUS_MUSIC_DIR || path.join(os.homedir(), 'OneDrive', 'Desktop', 'Songs');
+const TMP = fs.mkdtempSync(path.join(os.tmpdir(), 'orpheus-test-'));
 
-let fails = 0
-const ok = (label, cond, extra = '') => {
-  if (!cond) fails++
-  console.log(`  ${cond ? 'PASS' : 'FAIL'}  ${label}${extra ? `  ->  ${extra}` : ''}`)
+let passed = 0;
+const failures = [];
+const server = spawn(process.execPath, [path.join(ROOT, 'server.js')], {
+  env: { ...process.env, PORT: String(PORT), ORPHEUS_DATA_DIR: TMP, ORPHEUS_MUSIC_DIR: SONGS },
+  stdio: ['ignore', 'pipe', 'pipe']
+});
+let serverLog = '';
+server.stdout.on('data', (chunk) => {
+  serverLog += chunk;
+});
+server.stderr.on('data', (chunk) => {
+  serverLog += chunk;
+});
+
+function check(name, condition, detail = '') {
+  if (condition) {
+    passed += 1;
+    console.log(`  ok   ${name}`);
+  } else {
+    failures.push(`${name}${detail ? ` - ${detail}` : ''}`);
+    console.log(`  FAIL ${name}${detail ? ` - ${detail}` : ''}`);
+  }
 }
 
-const body = html.replace(/[\s\S]*<body[^>]*>/, '').replace(/<\/body>[\s\S]*$/, '')
-const text = body
-  .replace(/<script[\s\S]*?<\/script>/g, ' ')
-  .replace(/<style[\s\S]*?<\/style>/g, ' ')
-  .replace(/<svg[\s\S]*?<\/svg>/g, ' ')
-  .replace(/<[^>]+>/g, ' ')
-  .replace(/&amp;/g, '&').replace(/&quot;/g, '"').replace(/&#39;/g, "'")
-  .replace(/\s+/g, ' ').trim()
-
-console.log(`\n=== Nocturne Arcanum · render audit (${(html.length / 1024).toFixed(0)} KB) ===\n[1] Boot`)
-ok('page rendered', html.includes('NOCTURNE'))
-ok('hero headline present', text.includes('READ') && text.includes('PAST') && text.includes('SUNSET'))
-ok('no broken-image box', !/<img[^>]*alt=""/.test(html.replace(/<img[^>]*>/g, m => (m.includes('alt=""') ? '' : m))) || true)
-ok('every product img has alt text', (html.match(/<img /g) || []).length === (html.match(/<img [^>]*alt="[^"]+"/g) || []).length,
-   `${(html.match(/<img /g) || []).length} imgs`)
-
-console.log('\n[2] Required page sections')
-for (const [label, needle] of [
-  ['header nav: Home', 'Home'],
-  ['header nav: Manga', 'Manga'],
-  ['header nav: Figurines', 'Figurines'],
-  ['header nav: New Arrivals', 'New Arrivals'],
-  ['header nav: Cart', 'Cart'],
-  ['hero tagline', 'Your music, your machine'.slice(0, 0) || 'Collector-grade manga and figures'],
-  ['primary CTA', 'Browse the collection'],
-  ['stacked menu: Everything', 'Everything'],
-  ['stacked menu: Manga volumes', 'Manga volumes'],
-  ['stacked menu: Figurines', 'Figurines'],
-  ['stacked menu: New arrivals', 'New arrivals'],
-  ['product grid', 'The Dusksteel Overture'],
-  ['product price', '$189.00'],
-  ['new arrivals banner', 'Vesper Blade Vol. 3'],
-  ['service panels', 'Verified at intake'],
-  ['signup', 'Get the drop'],
-  ['footer contact', 'vault@nocturne-arcanum.example'],
-]) ok(label, text.includes(needle))
-
-console.log('\n[3] Design system in the CSS')
-const css = readFileSync('styles.css', 'utf8')
-ok('navy palette variables', /--navy-900:\s*#070d20/.test(css) && /--void:\s*#04060f/.test(css))
-ok('electric blue + cyan accents', /--electric:\s*#2f6bff/.test(css) && /--cyan:\s*#4fe3ff/.test(css))
-ok('single warm accent', /--amber:\s*#ffb545/.test(css))
-ok('uses clip-path shapes', (css.match(/clip-path:/g) || []).length >= 10, `${(css.match(/clip-path:/g) || []).length} uses`)
-ok('polygon cuts declared', css.includes('--shape-card') && css.includes('polygon('))
-ok('no border-radius on buttons/cards', !/\.btn\s*\{[^}]*border-radius/.test(css) && !/\.card\s*\{[^}]*border-radius/.test(css))
-ok('glow via text-shadow/box-shadow', css.includes('text-shadow:') && css.includes('box-shadow:'))
-ok('noise + scanline texture', css.includes('feTurbulence') && css.includes('repeating-linear-gradient'))
-ok('scanlines overlay present', css.includes('.fx-scan'))
-ok('grid overlay present', css.includes('.fx-grid'))
-ok('clock/moon dial motif', css.includes('.hero__dial') && css.includes('.hero__moon'))
-ok('keyframes for motion', (css.match(/@keyframes/g) || []).length >= 4, `${(css.match(/@keyframes/g) || []).length} keyframe sets`)
-ok('snappy transitions', css.includes('--snap:') && css.includes('--swift:') && css.includes('--push:'))
-ok('reveal-on-scroll class', css.includes('.reveal') && css.includes('.is-in'))
-ok('reduced-motion support', css.includes('prefers-reduced-motion'))
-ok('responsive breakpoints', (css.match(/@media \(max-width/g) || []).length >= 4, `${(css.match(/@media \(max-width/g) || []).length} breakpoints`)
-ok('font stack loaded', html.includes('fonts.googleapis.com') && css.includes('--font-display'))
-
-console.log('\n[4] Vanilla JS only')
-const js = readFileSync('script.js', 'utf8')
-ok('script.js present', js.length > 1000, `${js.length} bytes`)
-ok('no framework imports', !/(import\s+.*from\s+['"](react|vue|svelte|jquery)|require\(['"](react|vue|svelte|jquery))/.test(js))
-ok('no build step references', !/\b(npm|vite|webpack|esbuild|tsc)\b/.test(html))
-ok('cart state logic', js.includes('localStorage') && js.includes('FREE_SHIPPING_AT'))
-ok('filters wired', js.includes('applyProductFilter') && js.includes('data-filter'))
-ok('drawer a11y handled', js.includes('aria-hidden') && js.includes('Escape'))
-
-console.log('\n[5] Placeholder assets on disk')
-const assets = ['assets/vesper-1.svg','assets/vesper-2.svg','assets/vesper-3.svg','assets/crimson-1.svg',
-  'assets/moonfall-1.svg','assets/fig-aria.svg','assets/fig-kite.svg','assets/fig-sable.svg',
-  'assets/fig-ember.svg','assets/favicon.svg']
-for (const a of assets) {
-  ok(a, readFileSync(a, 'utf8').includes('<svg'))
+async function waitForServer() {
+  for (let i = 0; i < 60; i++) {
+    try {
+      const res = await fetch(`${BASE}/api/state`);
+      if (res.ok) return;
+    } catch {
+      /* not up yet */
+    }
+    await new Promise((resolve) => setTimeout(resolve, 250));
+  }
+  throw new Error(`server never came up:\n${serverLog}`);
 }
-// Product art is referenced from the HTML; vesper-3 comes from script.js EXTRA_ITEMS.
-const refs = html + readFileSync('script.js', 'utf8')
-const referenced = [...refs.matchAll(/assets\/([\w-]+\.svg)/g)].map((m) => m[1])
-ok('every referenced asset exists on disk',
-   referenced.every((f) => assets.some((a) => a.endsWith(`/${f}`))),
-   `${referenced.length} refs`)
-ok('all 10 svgs are actually used', new Set(referenced).size === 10, `${new Set(referenced).size} unique`)
 
-console.log(`\n[6] Visible text sample\n  ${text.slice(0, 300)}…`)
-console.log(`\n${fails === 0 ? 'ALL CHECKS PASSED' : `${fails} CHECK(S) FAILED`}\n`)
-process.exit(fails ? 1 : 0)
+async function post(url, body) {
+  const res = await fetch(`${BASE}${url}`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(body || {})
+  });
+  return { status: res.status, body: res.status === 204 ? null : await res.json() };
+}
+
+try {
+  await waitForServer();
+  console.log('\nProject Orpheus check');
+
+  const stateRes = await fetch(`${BASE}/api/state`);
+  check('GET /api/state returns 200', stateRes.status === 200);
+  const state = await stateRes.json();
+  check('library has tracks', state.tracks.length > 0, `found ${state.tracks.length}`);
+  check('tracks expose play counters', state.tracks.every((t) => typeof t.plays === 'number'));
+  check('tracks expose duration', state.tracks.some((t) => t.duration > 0), 'no parsed durations');
+  check('tracks have url endpoints', state.tracks.every((t) => t.url.startsWith('/api/audio/')));
+  check('artists grouped', state.artists.length > 0, 'no artists');
+  check('albums grouped', state.albums.length > 0, 'no albums');
+
+  const first = state.tracks[0];
+  const withCover = state.tracks.find((t) => t.cover);
+  if (!withCover) console.log('  note no tag-based cover art found in this folder');
+
+  const head = await fetch(`${BASE}${first.url}`, { headers: { Range: 'bytes=0-1023' } });
+  check('audio range request returns 206', head.status === 206, `status ${head.status}`);
+  check('audio range header is set', String(head.headers.get('content-range') || '').startsWith('bytes 0-1023/'));
+  const chunk = Buffer.from(await head.arrayBuffer());
+  check('audio range payload length', chunk.length === 1024, `got ${chunk.length}`);
+  check('audio is mpeg', head.headers.get('content-type') === 'audio/mpeg', head.headers.get('content-type'));
+
+  const full = await fetch(`${BASE}${first.url}`);
+  check('full audio request returns 200', full.status === 200);
+  check('full audio length matches size', Number(full.headers.get('content-length')) === first.size, 'length mismatch');
+  await full.arrayBuffer();
+
+  if (withCover) {
+    const cover = await fetch(`${BASE}/api/cover/${withCover.id}`);
+    check('cover art returns image', (cover.headers.get('content-type') || '').startsWith('image/'), cover.headers.get('content-type'));
+    await cover.arrayBuffer();
+  }
+
+  const created = await post('/api/playlists', { name: 'Test drive' });
+  check('create playlist', created.status === 200 && created.body.name === 'Test drive');
+  const playlistId = created.body.id;
+
+  const updated = await fetch(`${BASE}/api/playlists/${playlistId}`, {
+    method: 'PATCH',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ name: 'Night drive', tracks: [first.id] })
+  });
+  const updatedBody = await updated.json();
+  check('update playlist name and tracks', updated.status === 200 && updatedBody.name === 'Night drive' && updatedBody.tracks.length === 1);
+
+  const afterPlay = await post('/api/play', { id: first.id });
+  check('record a play', afterPlay.status === 200 && afterPlay.body.plays === 1, JSON.stringify(afterPlay.body));
+
+  const afterListen = await post('/api/listen', { id: first.id, sec: 42 });
+  check('record listening time', afterListen.status === 200 && afterListen.body.listenSec === 42, JSON.stringify(afterListen.body));
+
+  const durationRes = await post('/api/duration', { id: first.id, duration: 222.4 });
+  check('store measured duration', durationRes.status === 200 && durationRes.body.duration === 222);
+
+  const likeRes = await post('/api/like', { id: first.id });
+  check('toggle like', likeRes.status === 200 && likeRes.body.liked === true);
+
+  const state2 = await (await fetch(`${BASE}/api/state`)).json();
+  const statsRow = state2.tracks.find((t) => t.id === first.id);
+  check('play count visible in state', statsRow.plays === 1, `plays=${statsRow.plays}`);
+  check('listen time visible in state', statsRow.listenSec === 42, `listenSec=${statsRow.listenSec}`);
+  check('like visible in state', statsRow.liked === true);
+  check('playlist visible in state', state2.playlists.some((p) => p.name === 'Night drive'));
+  check('total plays updated', state2.totals.plays >= 1);
+
+  let persisted = null;
+  for (let i = 0; i < 20 && !persisted; i++) {
+    try {
+      persisted = JSON.parse(fs.readFileSync(path.join(TMP, 'state.json'), 'utf8'));
+    } catch {
+      await new Promise((resolve) => setTimeout(resolve, 150));
+    }
+  }
+  check('state written to disk', persisted && persisted.stats[first.id] && persisted.stats[first.id].plays === 1);
+
+  const index = await fetch(`${BASE}/`);
+  check('serves index.html', index.status === 200 && (index.headers.get('content-type') || '').includes('text/html'));
+  await index.text();
+
+  const traversal = await fetch(`${BASE}/../server.js`);
+  check('blocks path traversal', traversal.status === 404 || traversal.status === 403, `status ${traversal.status}`);
+
+  const missing = await fetch(`${BASE}/api/audio/deadbeefdeadbeef`);
+  check('unknown track returns 404', missing.status === 404);
+
+  const deleted = await fetch(`${BASE}/api/playlists/${playlistId}`, { method: 'DELETE' });
+  check('delete playlist', deleted.status === 200);
+  const state3 = await (await fetch(`${BASE}/api/state`)).json();
+  check('playlist gone from state', !state3.playlists.some((p) => p.id === playlistId));
+
+  const rescan = await post('/api/rescan');
+  check('rescan works', rescan.status === 200 && rescan.body.tracks > 0);
+
+  console.log(`\n${passed} passed, ${failures.length} failed`);
+  if (failures.length) console.log(failures.map((f) => `  - ${f}`).join('\n'));
+} catch (err) {
+  console.error('check crashed:', err);
+  failures.push(err.message);
+} finally {
+  server.kill();
+  fs.rmSync(TMP, { recursive: true, force: true });
+  if (failures.length) process.exitCode = 1;
+}

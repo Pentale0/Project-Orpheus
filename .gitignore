@@ -1,1 +1,9 @@
-﻿CACHE_NAME=orpheus
+node_modules/
+data/
+*.log
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+# previous single-file version kept locally as the design reference
+Project Orpheus.html
