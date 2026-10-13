@@ -35,7 +35,9 @@ function createWindow() {
     title: 'Orpheus Player',
   });
 
-  const indexPath = path.join(__dirname, '..', 'shared', 'index.html');
+  const indexPath = app.isPackaged
+    ? path.join(process.resourcesPath, 'shared', 'index.html')
+    : path.join(__dirname, '..', 'shared', 'index.html');
   win.loadFile(indexPath);
 
   ipcMain.on('quit', () => {

@@ -1,6 +1,7 @@
 node_modules/
 dist/
 dist-release/
+dist-local/
 
 # Copyrighted audio is intentionally NOT published
 shared/media/**/*.mp3
