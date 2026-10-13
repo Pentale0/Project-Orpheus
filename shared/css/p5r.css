@@ -1,0 +1,63 @@
+/* Persona 5 Royal Theme - red dominant */
+:root[data-theme="p5r"] {
+  --bg: radial-gradient(circle at top, #150000, #000000 70%);
+  --panel-bg: rgba(20, 0, 0, 0.92);
+  --border: 3px solid #ff1a1a;
+  --text-primary: #ffffff;
+  --text-dim: #ffcccc;
+  --accent: #ff1a1a;
+  --btn-bg: #0a0000;
+  --btn-text: #ffffff;
+  --selected-bg: #ff1a1a;
+  --selected-text: #ffffff;
+  --glow: none;
+  --list-item-bg: #0a0000;
+}
+
+html[data-theme='p5r'] body { background: var(--bg); }
+
+
+/* Menu */
+.menu-list { display:flex; flex-direction:column; gap:0.7rem; max-width:700px; margin:0 auto; padding:1rem; }
+.menu-item { position:relative; padding:1rem 1.6rem; border:var(--border); background:var(--btn-bg); color:var(--btn-text); text-transform:uppercase; letter-spacing:0.16em; font-weight:900; font-size:clamp(1.1rem,3.5vw,2rem); cursor:pointer; transform:skewX(-8deg); clip-path:polygon(0 0,98% 0,100% 10%,100% 100%,2% 100%,0 90%); }
+.menu-item .menu-label { display:inline-block; transform:skewX(8deg); }
+.menu-item:hover { transform:skewX(-8deg) translateX(4px); }
+.menu-item:active { transform:skewX(-8deg) translateX(1px) scale(0.995); }
+.menu-item.selected { background:var(--selected-bg); color:var(--selected-text); }
+
+/* Common */
+.section-header { text-transform:uppercase; letter-spacing:0.16em; font-weight:900; margin:0 0 1rem 0; font-size:clamp(1.2rem,3vw,1.8rem); }
+.search-bar { display:flex; gap:0.7rem; margin-bottom:1rem; flex-wrap:wrap; }
+.search-input { flex:1 1 260px; padding:0.6rem 0.9rem; border:var(--border); background:var(--list-item-bg); color:var(--text-primary); transform:skewX(-6deg); text-transform:uppercase; letter-spacing:0.08em; font-weight:700; }
+.song-list { display:flex; flex-direction:column; gap:0.6rem; }
+.song-item { display:grid; grid-template-columns:auto 1fr auto auto; gap:1rem; align-items:center; padding:0.8rem 1.1rem; border:var(--border); background:var(--list-item-bg); transform:skewX(-6deg); cursor:pointer; clip-path:polygon(0 0,99% 0,100% 15%,100% 100%,1% 100%,0 85%); }
+.song-item .skew-fix { display:inline-block; transform:skewX(6deg); }
+.song-item:hover { transform:skewX(-6deg) translateX(3px); }
+.song-item:active { transform:skewX(-6deg) translateX(1px) scale(0.995); }
+.song-item.selected { background:var(--selected-bg); color:var(--selected-text); }
+.song-cover-sm { width:44px; height:44px; object-fit:cover; border:var(--border); transform:skewX(6deg); }
+.song-title { font-weight:900; letter-spacing:0.12em; text-transform:uppercase; }
+.song-meta { font-size:0.85rem; opacity:0.9; text-transform:uppercase; letter-spacing:0.12em; }
+.btn { padding:0.5rem 0.8rem; border:var(--border); background:var(--btn-bg); color:var(--btn-text); transform:skewX(-6deg); text-transform:uppercase; letter-spacing:0.12em; font-weight:900; cursor:pointer; clip-path:polygon(0 0,98% 0,100% 20%,100% 100%,2% 100%,0 80%); }
+.btn .skew-fix { transform:skewX(6deg); display:inline-block; }
+.btn:hover { transform:skewX(-6deg) translateY(-1px); }
+.btn:active { transform:skewX(-6deg) translateY(1px) scale(0.98); }
+.btn.selected { background:var(--selected-bg); color:var(--selected-text); }
+.playlist-list { display:flex; flex-direction:column; gap:0.6rem; margin-bottom:1rem; }
+.playlist-item { padding:0.7rem 1rem; border:var(--border); background:var(--list-item-bg); transform:skewX(-6deg); cursor:pointer; text-transform:uppercase; letter-spacing:0.12em; font-weight:900; display:flex; align-items:center; gap:0.6rem; clip-path:polygon(0 0,99% 0,100% 25%,100% 100%,1% 100%,0 75%); }
+.playlist-item .skew-fix { transform:skewX(6deg); display:inline-block; }
+.playlist-item:hover { transform:skewX(-6deg) translateX(2px); }
+.playlist-item.selected { background:var(--selected-bg); color:var(--selected-text); }
+.stat-card { position:relative; border:var(--border); background:var(--panel-bg); backdrop-filter:blur(4px); transform:skewX(-6deg); padding:1.4rem; display:flex; flex-direction:column; gap:1rem; clip-path:polygon(0 0,98% 0,100% 10%,100% 100%,2% 100%,0 90%); }
+.stat-card .skew-fix { transform:skewX(6deg); display:flex; flex-direction:column; gap:1rem; }
+.stat-title { text-transform:uppercase; letter-spacing:0.16em; font-weight:900; font-size:clamp(1.1rem,2.5vw,1.6rem); }
+.dialog-backdrop { position:fixed; inset:0; display:none; align-items:center; justify-content:center; background:radial-gradient(circle,rgba(0,0,0,0.95),rgba(0,0,0,0.98)); z-index:100; }
+.dialog-backdrop.active { display:flex; }
+.dialog { position:relative; border:var(--border); background:var(--panel-bg); transform:skewX(-6deg); padding:2rem 2.4rem; max-width:560px; width:calc(100% - 2rem); display:flex; flex-direction:column; gap:1.2rem; clip-path:polygon(0 0,97% 0,100% 8%,100% 100%,3% 100%,0 92%); }
+.dialog .skew-fix { transform:skewX(6deg); display:flex; flex-direction:column; gap:1.2rem; }
+.dialog-title { text-transform:uppercase; letter-spacing:0.16em; font-weight:900; font-size:clamp(1.4rem,3.5vw,2rem); }
+.dialog-message { text-transform:uppercase; letter-spacing:0.1em; line-height:1.8; font-weight:700; }
+.dialog-actions { display:flex; gap:1rem; flex-wrap:wrap; }
+.dialog-btn { flex:1 1 220px; padding:0.9rem 1.2rem; border:var(--border); background:var(--btn-bg); color:var(--btn-text); transform:skewX(-6deg); text-transform:uppercase; letter-spacing:0.14em; font-weight:900; cursor:pointer; clip-path:polygon(0 0,98% 0,100% 20%,100% 100%,2% 100%,0 80%); }
+.dialog-btn .skew-fix { transform:skewX(6deg); display:inline-block; }
+.dialog-btn.selected { background:var(--selected-bg); color:var(--selected-text); }

@@ -1,0 +1,302 @@
+/* Base reset and layout for Orpheus Player */
+/* Focus: responsive, keyboard navigable, layered depth */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+:root {
+  --focus-ring: 2px solid #3de0ff;
+  --ease-out: cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: var(--bg);
+  color: var(--text-primary);
+  overflow-x: hidden;
+}
+
+button,
+[role='button'],
+input,
+select,
+textarea {
+  font: inherit;
+  color: inherit;
+  background: inherit;
+}
+
+:focus-visible {
+  outline: var(--focus-ring);
+  outline-offset: 2px;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Layout shell */
+.app-shell {
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  height: 100vh;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Header */
+.app-header {
+  padding: 0.75rem 1rem;
+  border-bottom: var(--border);
+  background: var(--panel-bg);
+  backdrop-filter: blur(4px);
+  z-index: 10;
+}
+
+.header-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.brand {
+  font-weight: 800;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  font-size: clamp(1rem, 2vw, 1.5rem);
+  position: relative;
+}
+
+.theme-toggle {
+  padding: 0.5rem 0.9rem;
+  border: var(--border);
+  background: var(--btn-bg);
+  color: var(--btn-text);
+  cursor: pointer;
+  transform: skewX(-6deg);
+  transition: transform 150ms var(--ease-out), background 150ms var(--ease-out),
+    color 150ms var(--ease-out), box-shadow 150ms var(--ease-out);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-weight: 700;
+}
+
+.theme-toggle:hover {
+  transform: skewX(-6deg) translateY(-1px);
+  box-shadow: var(--glow);
+}
+
+.theme-toggle:active {
+  transform: skewX(-6deg) translateY(1px) scale(0.98);
+}
+
+/* Main area */
+.app-main {
+  position: relative;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 1rem;
+  z-index: 5;
+}
+
+.view {
+  display: none;
+  min-height: 100%;
+}
+
+.view.active {
+  display: block;
+  animation: view-in 180ms var(--ease-out);
+}
+
+/* Now playing bar */
+.now-playing {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 1rem;
+  align-items: center;
+  padding: 0.75rem 1rem;
+  border-top: var(--border);
+  background: var(--panel-bg);
+  backdrop-filter: blur(4px);
+  z-index: 20;
+  position: relative;
+}
+
+.np-cover {
+  width: 56px;
+  height: 56px;
+  object-fit: cover;
+  border: var(--border);
+  transform: skewX(-4deg);
+}
+
+.np-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  min-width: 0;
+}
+
+.np-title {
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: clamp(0.85rem, 1.5vw, 1.1rem);
+}
+
+.np-artist {
+  font-size: clamp(0.75rem, 1.2vw, 0.9rem);
+  opacity: 0.85;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.np-controls {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.np-btn {
+  padding: 0.4rem 0.7rem;
+  border: var(--border);
+  background: var(--btn-bg);
+  color: var(--btn-text);
+  cursor: pointer;
+  transform: skewX(-4deg);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-weight: 700;
+  transition: transform 120ms var(--ease-out), background 120ms var(--ease-out),
+    color 120ms var(--ease-out), box-shadow 120ms var(--ease-out);
+}
+
+.np-btn:hover {
+  box-shadow: var(--glow);
+  transform: skewX(-4deg) translateY(-1px);
+}
+
+.np-btn:active {
+  transform: skewX(-4deg) translateY(1px) scale(0.98);
+}
+
+.np-progress-wrap {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.np-progress {
+  width: 100%;
+  accent-color: var(--accent);
+}
+
+.np-time {
+  display: flex;
+  justify-content: space-between;
+  font-size: clamp(0.7rem, 1vw, 0.8rem);
+  letter-spacing: 0.08em;
+}
+
+@keyframes view-in {
+  from {
+    opacity: 0;
+    transform: translateX(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@media (max-width: 720px) {
+  .now-playing {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+  .np-cover {
+    justify-self: center;
+  }
+  .np-info {
+    align-items: center;
+  }
+  .np-controls {
+    justify-content: center;
+  }
+}
+.app-shell { grid-template-columns: 220px 1fr; grid-template-rows: auto 1fr auto; grid-template-areas: 'sidebar header' 'sidebar main' 'sidebar footer'; } .app-sidebar { grid-area: sidebar; border-right: var(--border); background: var(--panel-bg); backdrop-filter: blur(4px); padding: 1rem 0.5rem; display: flex; flex-direction: column; gap: 0.5rem; } .sidebar-nav { display: flex; flex-direction: column; gap: 0.4rem; } .nav-btn { padding: 0.5rem 0.7rem; border: var(--border); background: var(--btn-bg); color: var(--btn-text); text-transform: uppercase; letter-spacing: 0.08em; font-weight: 700; transform: skewX(-4deg); cursor: pointer; transition: transform 120ms var(--ease-out), box-shadow 120ms var(--ease-out); } .nav-btn .skew-fix { display: inline-block; transform: skewX(4deg); } .nav-btn:hover { box-shadow: var(--glow); transform: skewX(-4deg) translateX(2px); } .nav-btn.active { background: var(--selected-bg); color: var(--selected-text); box-shadow: var(--glow); } .app-header { grid-area: header; } .app-main { grid-area: main; } .now-playing { grid-area: footer; }
+@media (max-width: 900px) { .app-shell { grid-template-columns: 1fr; grid-template-areas: 'header' 'main' 'footer'; } .app-sidebar { position: fixed; left: 0; top: 0; height: 100vh; transform: translateX(-100%); transition: transform 150ms var(--ease-out); z-index: 30; } body.sidebar-open .app-sidebar { transform: translateX(0); } }
+.header-nav { display:flex; gap:0.4rem; flex-wrap:wrap; }
+
+/* Folder filter */
+.folder-filter {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin-bottom: 1rem;
+}
+
+.folder-btn {
+  padding: 0.45rem 0.9rem;
+  border: var(--border);
+  background: var(--btn-bg);
+  color: var(--btn-text);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-weight: 700;
+  cursor: pointer;
+  transform: skewX(-4deg);
+  transition: transform 120ms var(--ease-out), background 120ms var(--ease-out),
+    color 120ms var(--ease-out), box-shadow 120ms var(--ease-out);
+}
+
+.folder-btn .skew-fix {
+  display: inline-block;
+  transform: skewX(4deg);
+}
+
+.folder-btn:hover {
+  box-shadow: var(--glow);
+  transform: skewX(-4deg) translateY(-1px);
+}
+
+.folder-btn.active {
+  background: var(--selected-bg);
+  color: var(--selected-text);
+}
+
+/* Volume slider */
+.np-vol-wrap {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.np-volume {
+  width: 120px;
+  accent-color: var(--accent);
+  cursor: pointer;
+}

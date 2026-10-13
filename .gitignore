@@ -1,0 +1,11 @@
+node_modules/
+dist/
+dist-release/
+
+# Copyrighted audio is intentionally NOT published
+shared/media/**/*.mp3
+
+*.log
+npm-debug.log*
+.DS_Store
+Thumbs.db

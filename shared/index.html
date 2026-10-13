@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="p3r">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Orpheus Player</title>
+    <link rel="stylesheet" href="css/base.css" />
+    <link rel="stylesheet" href="css/animations.css" />
+    <link rel="stylesheet" href="css/p3r.css" id="themeCssP3r" />
+    <link rel="stylesheet" href="css/p5r.css" id="themeCssP5r" disabled />
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="app-sidebar" id="sidebar">
+        <nav class="sidebar-nav">
+          <button class="nav-btn" data-nav="menu"><span class="skew-fix">Menu</span></button>
+          <button class="nav-btn" data-nav="collection"><span class="skew-fix">Collection</span></button>
+
+          <button class="nav-btn" data-nav="settings"><span class="skew-fix">Settings</span></button>
+          <button class="nav-btn" data-nav="stats"><span class="skew-fix">Stats</span></button>
+        </nav>
+      </aside>
+      <button class="nav-btn" id="btnMenuToggle" style="position:fixed;left:0.5rem;bottom:6.5rem;z-index:40" aria-label="Toggle menu"><span class="skew-fix">Menu</span></button>
+      <header class="app-header">
+        <div class="header-row">
+          <div class="brand">ORPHEUS</div>
+          <div class="header-nav">
+            <button class="theme-toggle" id="navPrev" tabindex="0"><span class="skew-fix">◀ Back</span></button>
+            <button class="theme-toggle" id="navNext" tabindex="0"><span class="skew-fix">Next ▶</span></button>
+          </div>
+          <button class="theme-toggle" id="themeToggle" aria-pressed="false" tabindex="0">
+            Theme: P3R
+          </button>
+        </div>
+      </header>
+      <main class="app-main" role="main">
+        <!-- Main Menu -->
+        <section class="view active" data-view="menu" aria-label="Main menu">
+          <div class="menu-list" id="menuList" role="menu"></div>
+        </section>
+
+        <!-- Collection / Library -->
+        <section class="view" data-view="collection" aria-label="Collection">
+          <h1 class="section-header">Collection</h1>
+          <div class="search-bar">
+            <input
+              id="songSearch"
+              class="search-input"
+              type="search"
+              placeholder="Search title, artist, album..."
+              aria-label="Search songs"
+            />
+          </div>
+          <div class="folder-filter" id="folderFilter" role="tablist" aria-label="Filter by folder">
+            <button class="folder-btn active" data-folder="all" role="tab" aria-selected="true"><span class="skew-fix">All</span></button>
+            <button class="folder-btn" data-folder="persona3" role="tab" aria-selected="false"><span class="skew-fix">Persona 3</span></button>
+            <button class="folder-btn" data-folder="persona5" role="tab" aria-selected="false"><span class="skew-fix">Persona 5</span></button>
+            <button class="folder-btn" data-folder="anime" role="tab" aria-selected="false"><span class="skew-fix">Anime</span></button>
+            <button class="folder-btn" data-folder="other" role="tab" aria-selected="false"><span class="skew-fix">Other</span></button>
+          </div>
+          <div class="song-list" id="songList" role="listbox" tabindex="0"></div>
+          <h2 class="section-header" style="margin-top: 2rem">Playlists</h2>
+          <div class="playlist-list" id="playlistList" role="listbox" tabindex="0"></div>
+        </section>
+
+        
+
+        
+
+        <!-- Settings -->
+        <section class="view" data-view="settings" aria-label="Settings">
+          <h1 class="section-header">Settings</h1>
+          <div class="stat-card">
+            <div class="skew-fix">
+              <div class="stat-title">About</div>
+              <div class="dialog-message" id="settingsInfo"></div>
+              <div class="dialog-message">Keyboard: Arrows + Enter/Space + Esc. A to add song to playlist.</div>
+            </div>
+          </div>
+          <div class="stat-card" style="margin-top:1rem">
+            <div class="skew-fix">
+              <div class="stat-title">System</div>
+              <label style="display:flex;align-items:center;gap:0.6rem;cursor:pointer">
+                <input type="checkbox" id="chkAutoStart" />
+                <span>Launch on Windows startup</span>
+              </label>
+            </div>
+          </div>
+          <div style="margin-top: 1rem;display:flex;gap:0.5rem;flex-wrap:wrap">
+            <button class="btn" id="btnStats"><span class="skew-fix">Stats / Profile</span></button>
+            <button class="btn" id="btnStates"><span class="skew-fix">States Demo</span></button>
+            <button class="btn" id="btnBackMenu"><span class="skew-fix">Back to Menu</span></button>
+          </div>
+        </section>
+
+        <!-- Stats / Profile -->
+        <section class="view" data-view="stats" aria-label="Stats">
+          <h1 class="section-header">Stats / Profile</h1>
+          <div class="stats-grid">
+            <article class="stat-card">
+              <div class="skew-fix">
+                <div class="stat-title">Progress</div>
+                <div class="meter">
+                  <div class="meter-labels"><span>Songs</span><span id="statSongs">0</span></div>
+                  <div class="meter-bar"><div class="meter-fill" id="prog1"></div></div>
+                </div>
+                <div class="meter">
+                  <div class="meter-labels"><span>Hours</span><span><span id="statHours">0</span>h <span id="statMins">0</span>m</span></div>
+                  <div class="meter-bar"><div class="meter-fill" id="prog2"></div></div>
+                </div>
+              </div>
+            </article>
+            <article class="stat-card">
+              <div class="skew-fix">
+                <div class="stat-title">Calendar</div>
+                <div class="calendar" id="calendar"></div>
+                <div class="moon-phase">
+                  <div class="moon" aria-hidden="true"></div>
+                  <div>Moon Phase • <span id="dateStr"></span></div>
+                </div>
+              </div>
+            </article>
+          </div>
+          <div style="margin-top: 1rem">
+            <button class="btn" id="btnBackStats"><span class="skew-fix">Back to Settings</span></button>
+          </div>
+        </section>
+
+        <!-- States Demo -->
+        <section class="view" data-view="states" aria-label="States Demo">
+          <h1 class="section-header">Hover / Active / Selected States</h1>
+          <div class="states-demo">
+            <div class="demo-row">
+              <div class="demo-chip"><span class="skew-fix">Normal</span></div>
+              <div class="demo-chip hover"><span class="skew-fix">Hover</span></div>
+              <div class="demo-chip active"><span class="skew-fix">Active</span></div>
+              <div class="demo-chip selected"><span class="skew-fix">Selected</span></div>
+            </div>
+            <div class="demo-row">
+              <button class="menu-item"><span class="menu-label">Menu Item (Normal)</span></button>
+              <button class="menu-item selected"><span class="menu-label">Menu Item (Selected)</span></button>
+            </div>
+            <div class="demo-row">
+              <div class="song-item">
+                <span class="skew-fix">Song Item</span>
+              </div>
+              <div class="song-item selected">
+                <span class="skew-fix">Song Item Selected</span>
+              </div>
+            </div>
+          </div>
+          <div style="margin-top: 1rem">
+            <button class="btn" id="btnBackStates"><span class="skew-fix">Back to Settings</span></button>
+          </div>
+        </section>
+
+        <!-- Dialog -->
+        <div class="dialog-backdrop" id="dialogBackdrop" role="dialog" aria-modal="true" aria-labelledby="dialogTitle">
+          <div class="dialog" role="document">
+            <div class="skew-fix">
+              <div class="dialog-title" id="dialogTitle">Dialog</div>
+              <div class="dialog-message" id="dialogMsg">Message</div>
+              <div class="dialog-actions">
+                <button class="dialog-btn" id="dialogOk" tabindex="0"><span class="skew-fix">OK</span></button>
+                <button class="dialog-btn" id="dialogCancel" tabindex="0"><span class="skew-fix">Cancel</span></button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+      <footer class="now-playing" role="complementary">
+        <img class="np-cover" id="npCover" src="media/covers/Last Surprise.svg" alt="cover" />
+        <div class="np-info">
+          <div class="np-title" id="npTitle">Nothing playing</div>
+          <div class="np-artist" id="npArtist">-</div>
+        </div>
+        <div class="np-controls">
+          <button class="np-btn" id="npPrev" tabindex="0"><span class="skew-fix">Prev</span></button>
+          <button class="np-btn" id="npPlay" tabindex="0"><span class="skew-fix">Play</span></button>
+          <button class="np-btn" id="npNext" tabindex="0"><span class="skew-fix">Next</span></button>
+          <div class="np-vol-wrap">
+            <span class="np-artist">Vol</span>
+            <input class="np-progress np-volume" id="npVol" type="range" min="0" max="100" value="100" step="1" aria-label="Volume" />
+            <span class="np-artist" id="npVolLabel">100%</span>
+          </div>
+        </div>
+        <div class="np-progress-wrap">
+          <input class="np-progress" id="npSeek" type="range" min="0" max="100" value="0" step="1" />
+          <div class="np-time">
+            <span id="npCur">0:00</span><span id="npDur">0:00</span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    <script type="module" src="js/app.js"></script>
+  </body>
+</html>
+
+

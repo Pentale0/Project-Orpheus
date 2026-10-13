@@ -1,0 +1,14 @@
+{
+  "name": "orpheus-player",
+  "version": "0.1.0",
+  "main": "main.js",
+  "private": true,
+  "description": "Orpheus - Persona 3/5 styled local music player",
+  "author": "Orpheus",
+  "scripts": {
+    "start": "electron ."
+  },
+  "devDependencies": {
+    "electron": "^44.7.1"
+  }
+}

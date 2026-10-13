@@ -1,0 +1,43 @@
+/* Shared keyframes and motion helpers */
+
+  50% {
+    box-shadow: 0 0 12px rgba(61, 224, 255, 0.55);
+  }
+}
+@keyframes p5r-snap {
+  0% {
+    transform: skewX(-8deg) scale(0.98) translateX(-4px);
+  }
+  60% {
+    transform: skewX(-8deg) scale(1.02) translateX(2px);
+  }
+  100% {
+    transform: skewX(-8deg) scale(1) translateX(0);
+  }
+}
+@keyframes p5r-shake {
+  0% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(-1px);
+  }
+  50% {
+    transform: translateX(1px);
+  }
+  75% {
+    transform: translateX(-1px);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+@keyframes sweep-in {
+  from {
+    clip-path: polygon(0 0, 0 0, 0 100%, 0 100%);
+  }
+  to {
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+  }
+}
+
